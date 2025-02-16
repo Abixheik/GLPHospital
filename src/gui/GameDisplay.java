@@ -5,7 +5,7 @@ import java.awt.Graphics;
 import javax.swing.JPanel;
 
 import game.Hospital;
-import map.Ground;
+import map.Map;
 
 public class GameDisplay extends JPanel{
 	private Hospital hospital;

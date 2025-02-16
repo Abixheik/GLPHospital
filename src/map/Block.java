@@ -3,12 +3,12 @@ package map;
 public class Block {
 	private int line;
 	private int column;
-	private boolean isBought;
+	private ItemPosition item;
 
 	public Block(int line, int column) {
 		this.line = line;
 		this.column = column;
-		this.isBought=false;
+		this.item=null;
 	}
 
 	public int getLine() {
@@ -18,16 +18,21 @@ public class Block {
 	public int getColumn() {
 		return column;
 	}
-	public boolean getIsBought() {
-		return isBought;
+	public ItemPosition getItem() {
+		return item;
 	}
 	
-	public void setIsBought(boolean b) {
-		this.isBought=b;
+	public void setItem(ItemPosition i) {
+		this.item=i;
 	}
 	@Override
 	public String toString() {
-		return "Block [line=" + line + ", column=" + column + "], is bought :" + isBought;
+		if(item!=null) {
+			return "Block [line=" + line + ", column=" + column + "] itemPos :"+ item.toString();
+		}
+		else {
+			return "Block [line=" + line + ", column=" + column + "]";
+		}
 	}
 
 }

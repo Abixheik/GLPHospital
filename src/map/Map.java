@@ -1,11 +1,12 @@
 package map;
 
+import java.util.HashMap;
 
-public class Ground {
+public class Map {
 	private int lineCount;
 	private int columnCount;
 	Block [][] blocks;
-	public Ground(int lineCount, int columnCount){
+	public Map(int lineCount, int columnCount){
 		init(lineCount,columnCount);
 		for (int lineIndex = 0; lineIndex < lineCount; lineIndex++) {
 			for (int columnIndex = 0; columnIndex < columnCount; columnIndex++) {
@@ -31,6 +32,28 @@ public class Ground {
 
 	public int getColumnCount() {
 		return columnCount;
+	}
+	public void placeArea(int x, int y) {
+		Area a = new Area(3,3, blocks[x][y]);
+		for(int i=x;i<x+a.getHeight();i++) {
+			for(int j=y;j<y+a.getHeight();j++) {
+				this.blocks[i][j].setItem(a);
+				System.out.println(blocks[i][j].getItem().getHearth());
+			}
+		}
+	}
+	public void areaToService(int x, int y) {
+		Block h = blocks[x][y].getItem().getHearth();
+		ItemPosition a= h.getItem();
+		int x1= h.getLine();
+		int y1= h.getColumn();
+		Service s= new Service(a.getHeight(), a.getWidth(), "nom",a.getHearth());
+		for(int i=x1;i<x1+a.getHeight();i++) {
+			for(int j=y1;j<y1+a.getWidth();j++) {
+				this.blocks[i][j].setItem(s);
+			}
+		}
+		
 	}
 
 	public Block getBlock(int line, int column) {

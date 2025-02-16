@@ -13,6 +13,7 @@ import javax.swing.JTextField;
 
 import config.GameConfiguration;
 import game.Hospital;
+import map.Block;
 import process.GameBuilder;
 
 /**
@@ -29,14 +30,20 @@ public class MainGUI extends JFrame implements Runnable {
 
 	private final static Dimension preferredSize = new Dimension(GameConfiguration.WINDOW_WIDTH, GameConfiguration.WINDOW_HEIGHT);
 
+	private Block currentPosition;
 
 	private GameDisplay dashboard;
+	
+	private char currentAction = '0';
+	
+	private char putArea ='1';
+
 
 	public MainGUI(String title) {
 		super(title);
 		init();
 	}
-
+	
 	private void init() {
 
 		Container contentPane = getContentPane();
@@ -80,9 +87,21 @@ public class MainGUI extends JFrame implements Runnable {
 
 		@Override
 		public void keyPressed(KeyEvent event) {
-			
-		}
+			char keyChar = event.getKeyChar();
+			switch (keyChar) {
 
+			case 'b':
+//				hospital.buyBlock(currentPosition.getColumn() / GameConfiguration.BLOCK_SIZE, currentPosition.getLine()/GameConfiguration.BLOCK_SIZE);
+				break;
+			case 'p':
+				currentAction='1';
+				break;
+			case 's':
+				currentAction='2';
+			default:
+				break;
+			}
+		}
 		@Override
 		public void keyTyped(KeyEvent e) {
 
@@ -100,8 +119,19 @@ public class MainGUI extends JFrame implements Runnable {
 		public void mouseClicked(MouseEvent e) {
 			int x = e.getX();
 			int y = e.getY();
-			hospital.buyBlock(y / GameConfiguration.BLOCK_SIZE, x / GameConfiguration.BLOCK_SIZE);
+		
+		switch (currentAction) {
+			case '1':
+				hospital.getMap().placeArea(y / GameConfiguration.BLOCK_SIZE, x/ GameConfiguration.BLOCK_SIZE);
+				break;
+			case '2':
+				hospital.getMap().areaToService(y  / GameConfiguration.BLOCK_SIZE, x/ GameConfiguration.BLOCK_SIZE);
+			default:
+				break;
+			}
 		}
+		
+			
 
 		@Override
 		public void mousePressed(MouseEvent e) {
